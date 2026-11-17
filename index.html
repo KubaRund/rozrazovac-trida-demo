@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Rozřazovač třídy</title>
+  <link rel="stylesheet" href="styl.css">
+  <script defer src="vyvazeni.js"></script>
+  <script defer src="losovani.js"></script>
+  <script defer src="aplikace.js"></script>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <p class="eyebrow">Pomůcka pro učitele</p>
+      <h1>Rozřazovač třídy</h1>
+      <p class="intro">Rozděl třídu do skupin nebo vylosuj dvojice na služby. Jména zůstávají v otevřené kartě.</p>
+    </header>
+    <div class="layout">
+      <form id="draw-form" class="panel">
+        <h2>Nastavení losu</h2>
+        <fieldset>
+          <legend>Co losuješ</legend>
+          <div class="choices">
+            <label><input type="radio" name="mode" value="groups" checked> Skupiny</label>
+            <label><input type="radio" name="mode" value="services"> Služby</label>
+          </div>
+        </fieldset>
+        <div class="pair" id="group-settings">
+          <label>Rozdělení
+            <select id="group-rule">
+              <option value="count">Podle počtu skupin</option>
+              <option value="max">Podle největší skupiny</option>
+            </select>
+          </label>
+          <label><span id="group-value-label">Počet skupin</span>
+            <input type="number" id="group-value" min="1" step="1" value="4" required>
+          </label>
+        </div>
+        <label class="check" id="balance-setting">
+          <input type="checkbox" id="balance"> Vyvaž skupiny podle bodů
+        </label>
+        <div class="roster-heading">
+          <label for="roster">Seznam žáků</label>
+          <output id="roster-count" for="roster"></output>
+        </div>
+        <p class="hint" id="roster-hint">Jedno jméno na řádek.</p>
+        <textarea id="roster" rows="9" spellcheck="false" autocomplete="off" aria-describedby="roster-hint" placeholder="Vlož seznam žáků…"></textarea>
+        <div class="roster-actions">
+          <label class="file-button">Načíst TXT<input id="roster-file" type="file" accept=".txt,text/plain"></label>
+          <button type="button" id="sample" class="quiet">Vložit ukázku</button>
+        </div>
+        <details>
+          <summary>Zopakovat dřívější los</summary>
+          <label for="seed">Kód losu</label>
+          <input id="seed" autocomplete="off" spellcheck="false" placeholder="Prázdné pole vytvoří nový kód">
+          <p class="hint">Pro stejný výsledek použij stejný seznam ve stejném pořadí a stejné nastavení.</p>
+        </details>
+        <p class="error" id="form-error" role="alert" hidden></p>
+        <button class="primary" type="submit">Losovat</button>
+      </form>
+
+      <section class="panel results" aria-labelledby="results-title">
+        <div class="result-heading">
+          <h2 id="results-title">Výsledek</h2>
+          <div id="export-actions" hidden>
+            <button type="button" id="copy">Kopírovat</button>
+            <button type="button" id="download">Stáhnout CSV</button>
+          </div>
+        </div>
+        <p id="result-summary" role="status"></p>
+        <p id="result-balance" class="hint" hidden></p>
+        <p id="empty" class="empty">Po losování se tu zobrazí skupiny nebo služby.</p>
+        <div id="cards" class="cards"></div>
+        <section id="reserve" hidden>
+          <h3>Bez služby</h3>
+          <ul id="reserve-list"></ul>
+        </section>
+        <p id="result-seed" class="hint" hidden></p>
+        <p id="export-status" class="hint" role="status"></p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
